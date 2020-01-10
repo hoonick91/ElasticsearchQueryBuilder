@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e2c906e-ebc7-41e9-9e02-367b6017228c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QueryBuilder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/QueryBuilder.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/ElasticsearchQuery.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/QueryBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/aggs/Aggregations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/aggs/AggsCardinality.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/aggs/AggsDateHistogram.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/aggs/AggsTerms.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/common/TestDescription.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/condition/HistogramCondition$HistogramConditionBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/condition/HistogramCondition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/condition/RangeCondition$RangeConditionBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/me/hoonick/condition/RangeCondition.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -136,7 +119,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/me/hoonick/QueryBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="811">
+            <state relative-caret-position="15">
               <caret line="236" column="53" selection-start-line="236" selection-start-column="53" selection-end-line="236" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -331,7 +314,7 @@
     <property name="SearchEverywhereHistoryKey" value="registry...&#9;ACTION&#9;ShowRegistry" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578646415350" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578646495451" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -473,7 +456,7 @@
       <workItem from="1578528503969" duration="1047000" />
       <workItem from="1578548339706" duration="15858000" />
       <workItem from="1578614936962" duration="864000" />
-      <workItem from="1578620941745" duration="17976000" />
+      <workItem from="1578620941745" duration="18018000" />
     </task>
     <servers />
   </component>
@@ -510,13 +493,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38322000" />
+    <option name="totallyTimeSpent" value="38364000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1057" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.44781682" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.44781682" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -531,7 +514,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32953367" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32953367" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.34818652" />
@@ -672,20 +655,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/me/hoonick/QueryBuilder.java">
+    <entry file="file://$PROJECT_DIR$/test/me/hoonick/QueryBuilderTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="811">
-          <caret line="236" column="53" selection-start-line="236" selection-start-column="53" selection-end-line="236" selection-end-column="53" />
+        <state relative-caret-position="318">
+          <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/me/hoonick/QueryBuilderTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/me/hoonick/QueryBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="52" column="44" selection-start-line="52" selection-start-column="44" selection-end-line="52" selection-end-column="44" />
+        <state relative-caret-position="15">
+          <caret line="236" column="53" selection-start-line="236" selection-start-column="53" selection-end-line="236" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
