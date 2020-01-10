@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ElasticsearchQueryBuilder" />
+        <module name="QueryBuilder" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ElasticsearchQueryBuilder" target="1.5" />
+    <bytecodeTargetLevel target="8">
+      <module name="QueryBuilder" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

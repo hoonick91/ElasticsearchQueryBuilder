@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ElasticsearchQueryBuilder.iml" filepath="$PROJECT_DIR$/ElasticsearchQueryBuilder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QueryBuilder.iml" filepath="$PROJECT_DIR$/QueryBuilder.iml" />
     </modules>
   </component>
 </project>
