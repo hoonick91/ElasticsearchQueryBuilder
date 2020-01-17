@@ -1,8 +1,6 @@
 package me.hoonick;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.hoonick.aggs.AggsDateHistogram;
-import me.hoonick.aggs.AggsTerms;
 import me.hoonick.common.TestDescription;
 import me.hoonick.condition.HistogramCondition;
 import me.hoonick.condition.RangeCondition;
