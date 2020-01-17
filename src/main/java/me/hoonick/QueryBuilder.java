@@ -1,31 +1,36 @@
 package me.hoonick;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.ToString;
-import me.hoonick.aggs.Aggregations;
 import me.hoonick.condition.HistogramCondition;
 import me.hoonick.condition.RangeCondition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @ToString
 public class QueryBuilder {
+    private String size;
+    private String from;
+
     private String query;
     private String bool;
     private String filter;
+    private String should;
+    private String must_not;
     private List<String> matches = new ArrayList<String>();
     private List<String> prefixes = new ArrayList<String>();
     private List<String> exists = new ArrayList<>();
-    private String range;
+    private List<String> range = new ArrayList<>();
 
     private String aggs;
     private String dateHistogram;
     private String terms;
     private String groupName;
-    private String size;
     private String cardinality;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -35,34 +40,32 @@ public class QueryBuilder {
             this.filter = queryBuilder.filter;
         }
 
-        if (queryBuilder.matches != null) {
+        if (queryBuilder.matches.size() != 0) {
             this.matches = queryBuilder.matches;
         }
 
-        if (queryBuilder.prefixes != null) {
+        if (queryBuilder.prefixes.size() != 0) {
             this.prefixes = queryBuilder.prefixes;
         }
 
-        if (queryBuilder.range != null) {
+        if (queryBuilder.range.size() != 0) {
             this.range = queryBuilder.range;
         }
 
-        if (queryBuilder.exists != null) {
+        if (queryBuilder.exists.size() != 0) {
             this.exists = queryBuilder.exists;
+        }
+
+        if (queryBuilder.bool != null) {
+            this.bool = queryBuilder.bool;
         }
 
         return this;
     }
 
 
-    public QueryBuilder or(QueryBuilder q1, QueryBuilder q2, Boolean condition) {
-
-        if (condition) {
-            checkNotNull(q1);
-            return this;
-        }
-
-        checkNotNull(q2);
+    public QueryBuilder or(Integer condition, QueryBuilder... queryBuilders) {
+        checkNotNull(queryBuilders[condition]);
         return this;
     }
 
@@ -71,24 +74,46 @@ public class QueryBuilder {
         return this;
     }
 
+    public QueryBuilder from(int from) {
+        this.from = "\"from\": " + from + "";
+        return this;
+    }
+
     public QueryBuilder query(QueryBuilder queryBuilder) {
 
-        this.query = "\"query\": {" + queryBuilder.bool + "}";
+        this.query = "\"query\": " + queryBuilder.bool + "";
         return this;
     }
 
     public QueryBuilder bool(QueryBuilder queryBuilder) {
 
-        this.bool = "\"bool\":{" + queryBuilder.filter + "}";
+        List<String> boolList = new ArrayList<>();
+        boolList.add(queryBuilder.filter);
+        boolList.add(queryBuilder.should);
+
+        boolList = boolList.stream().filter(Objects::nonNull).map(Object::toString).collect(Collectors.toList());
+
+        this.bool = "{\n" +
+                "                    \"bool\": {" + String.join(",", boolList) + "}\n" +
+                "                }";
+
 
         return this;
     }
+
+//    public QueryBuilder must_not(QueryBuilder queryBuilder){
+//        //TODO
+//    }
 
     public QueryBuilder filter(QueryBuilder queryBuilder) {
 
         List<String> filterList = new ArrayList<String>();
 
-        filterList.add(queryBuilder.range);
+        if (queryBuilder.range.size() != 0) {
+            filterList.add(String.join(",", queryBuilder.range));
+        }
+
+        filterList.add(queryBuilder.bool);
         filterList.addAll(queryBuilder.matches);
         filterList.addAll(queryBuilder.prefixes);
         filterList.addAll(queryBuilder.exists);
@@ -114,13 +139,43 @@ public class QueryBuilder {
         return this;
     }
 
-    public QueryBuilder range(RangeCondition rangeCondition, String field) throws Exception {
+    public QueryBuilder range(List<RangeCondition> rangeConditions, String field) {
 
-        this.range = "  {\n" +
-                "                    \"range\": {\n" +
-                "                        \"" + field + "\": " + objectMapper.writeValueAsString(rangeCondition) + "\n" +
-                "                    }\n" +
-                "                }";
+        try {
+
+            for (RangeCondition rangeCondition : rangeConditions) {
+                String range = "  {\n" +
+                        "                    \"range\": {\n" +
+                        "                        \"" + field + "\": " + objectMapper.writeValueAsString(rangeCondition) + "\n" +
+                        "                    }\n" +
+                        "                }";
+
+                this.range.add(range);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return this;
+    }
+
+    public QueryBuilder range(RangeCondition rangeCondition, String field) {
+
+        try {
+
+            String range = "  {\n" +
+                    "                    \"range\": {\n" +
+                    "                        \"" + field + "\": " + objectMapper.writeValueAsString(rangeCondition) + "\n" +
+                    "                    }\n" +
+                    "                }";
+
+            this.range.add(range);
+
+        } catch (Exception e) {
+            //TODO error 처리
+            e.printStackTrace();
+        }
+
         return this;
 
     }
@@ -140,6 +195,8 @@ public class QueryBuilder {
     }
 
     public QueryBuilder match(String key, String value) {
+
+        if (value.equals("")) return this;
 
         List<String> matches = this.matches;
         matches.add("{\n" +
@@ -239,25 +296,36 @@ public class QueryBuilder {
         return this;
     }
 
-    public QueryBuilder dateHistogram(HistogramCondition histogramCondition) throws Exception {
-        this.dateHistogram = "\"date_histogram\": " + objectMapper.writeValueAsString(histogramCondition);
+    public QueryBuilder dateHistogram(HistogramCondition histogramCondition) {
+
+        Map<String, Object> result = objectMapper.convertValue(histogramCondition, Map.class);
+        result.values().removeIf(Objects::isNull);
+
+
+        try {
+            this.dateHistogram = "\"date_histogram\": " + objectMapper.writeValueAsString(result);
+            //TODO error 처리
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
 
+    //TODO Singleton 및 Syn 고려
     public static QueryBuilder builder() {
         return new QueryBuilder();
     }
 
-    public String build() throws Exception {
-
+    public String build() {
 
         if (isNull(this.query)) {
-            throw new Exception("query is not null");
+            return "query is not null";
         }
 
         List<String> results = new ArrayList<>();
         results.add(this.size);
+        results.add(this.from);
         results.add(this.query);
         results.add(this.aggs);
 
@@ -270,4 +338,24 @@ public class QueryBuilder {
     private Boolean isNull(String input) {
         return input == null;
     }
+
+    public void printPretty(String query) {
+
+        try {
+            Object json = objectMapper.readValue(query, Object.class);
+            String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println("query parsing error");
+            System.out.println(query);
+        }
+
+    }
+
+    public QueryBuilder should(QueryBuilder queryBuilder) {
+
+        this.should = "\"should\": [" + String.join(",", queryBuilder.range) + "]";
+        return this;
+    }
 }
+

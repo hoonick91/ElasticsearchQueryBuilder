@@ -40,8 +40,6 @@ public class QueryBuilderTest {
             .build();
 
 
-
-
     @Test
     @TestDescription("홈매니져 -> AI SPACE 요청 수 조회")
     public void homeManagerGraphTest() throws Exception {
@@ -50,21 +48,21 @@ public class QueryBuilderTest {
                 .query(QueryBuilder.builder()
                         .bool(QueryBuilder.builder()
                                 .filter(QueryBuilder.builder()
-                                        .or(
+                                        .or(0,
                                                 QueryBuilder.builder()
                                                         .range(tody, "e2elog.timestamp"),
                                                 QueryBuilder.builder()
-                                                        .range(week, "e2elog.timestamp"),
-                                                false)
+                                                        .range(week, "e2elog.timestamp")
+                                        )
                                         .match("e2elog.logType", "IN_RES")
-                                        .or(
+                                        .or(1,
                                                 QueryBuilder.builder()
                                                         .prefix("e2elog.e2eTransactionId", "DEFAULT")
                                                         .match("e2elog.logType", "IN_RES")
                                                         .exists("e2elog.connectionId"),
                                                 QueryBuilder.builder()
-                                                        .match("e2elog.instanceId", "ExternalId"),
-                                                false))))
+                                                        .match("e2elog.instanceId", "ExternalId")
+                                        ))))
                 .aggs(QueryBuilder.builder()
                         .groupName("time_per_request")
                         .dateHistogram(histogramCondition)
@@ -73,21 +71,7 @@ public class QueryBuilderTest {
                                 .cardinality("e2elog.e2eTransactionId")))
                 .build();
 
-        printPretty(query);
-    }
-
-
-    private void printPretty(String query) {
-
-        try {
-            Object json = objectMapper.readValue(query, Object.class);
-            String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            System.out.println(result);
-        } catch (Exception e) {
-            System.out.println("query parsing error");
-            System.out.println(query);
-        }
-
+        QueryBuilder.builder().printPretty(query);
     }
 
 
@@ -99,13 +83,14 @@ public class QueryBuilderTest {
                         .bool(QueryBuilder.builder()
                                 .filter(QueryBuilder.builder()
                                         .range(rangeCondition, "e2elog.timestamp")
-                                        .or(QueryBuilder.builder()
+                                        .or(1,
+                                                QueryBuilder.builder()
                                                         .prefix("e2elog.e2eTransactionId", "DEFAULT")
                                                         .match("e2elog.logType", "IN_RES"),
                                                 QueryBuilder.builder()
                                                         .match("e2elog.modelId", "VISITOR")
-                                                        .match("e2elog.aptComplex", "305"),
-                                                false)
+                                                        .match("e2elog.aptComplex", "305")
+                                        )
 
                                 )
                         )
@@ -121,7 +106,7 @@ public class QueryBuilderTest {
                                         .cardinality("e2elog.e2eTransactionId"))))
                 .build();
 
-        printPretty(testQuery);
+        QueryBuilder.builder().printPretty(testQuery);
 
     }
 
@@ -143,15 +128,13 @@ public class QueryBuilderTest {
                         .bool(QueryBuilder.builder()
                                 .filter(QueryBuilder.builder()
                                         .range(rangeCondition, "e2elog.timestamp")
-                                        .or(
+                                        .or(1,
                                                 QueryBuilder.builder()
                                                         .prefix("e2elog.e2eTransactionId", "DEFAULT1")
                                                         .match("e2elog.logType", "IN_RES"),
                                                 QueryBuilder.builder()
                                                         .prefix("e2elog.e2eTransactionId", "DEFAULT2")
-                                                        .match("e2elog.logType", "IN_RES"),
-
-                                                true
+                                                        .match("e2elog.logType", "IN_RES")
                                         )
 
                                 )));
